@@ -1,10 +1,30 @@
 import "./styles.css";
 
-document.getElementById("app").innerHTML = `
-<h1>Hello Vanilla!</h1>
-<div>
-  We use the same configuration as Parcel to bundle this sandbox, you can find more
-  info about Parcel 
-  <a href="https://parceljs.org" target="_blank" rel="noopener noreferrer">here</a>.
-</div>
-`;
+let currentTurn = "X";
+
+function createTable() {
+  const table = document.getElementById("board");
+  for (let i = 0; i < 5; i++) {
+    let row = table.insertRow();
+    for (let j = 0; j < 5; j++) {
+      row.insertCell();
+    }
+  }
+}
+
+createTable();
+
+function changePlayer() {
+  currentTurn = currentTurn === "X" ? "O" : "X";
+}
+
+function insertValue(tableCell, table) {
+  if (tableCell.innerHTML === "") {
+    tableCell.innerHTML = "X";
+    changePlayer();
+  }
+  if (tableCell.innerHTML === "") {
+    tableCell.innerHTML = "O";
+    changePlayer();
+  }
+}
