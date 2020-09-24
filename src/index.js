@@ -1,6 +1,6 @@
 import "./styles.css";
 
-let currentTurn = "X";
+let currentTurn = "O";
 
 function createTable() {
   const table = document.getElementById("board");
@@ -10,6 +10,7 @@ function createTable() {
       row.insertCell();
     }
   }
+  cellClick(table);
 }
 
 createTable();
@@ -19,7 +20,7 @@ function changePlayer() {
 }
 
 function insertValue(tableCell, table) {
-  if (tableCell.innerHTML === "") {
+  if (tableCell.innerHTML === "" && currentTurn === "O") {
     tableCell.innerHTML = "X";
     changePlayer();
   }
@@ -28,3 +29,15 @@ function insertValue(tableCell, table) {
     changePlayer();
   }
 }
+
+function cellClick(table) {
+  for (var i = 0; i < table.rows.length; i++) {
+    for (var j = 0; j < table.rows[i].cells.length; j++) {
+      table.rows[i].cells[j].onclick = function () {
+        insertValue(this, table);
+      };
+    }
+  }
+}
+
+function tableInserts(tableCell, table) {}
