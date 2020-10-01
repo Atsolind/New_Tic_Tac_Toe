@@ -3,6 +3,21 @@ import "./styles.css";
 let currentTurn = "O";
 let gameActive = true;
 
+function movebar() {
+  var time = document.getElementById("insidebar");
+  var width = 0;
+  var id = setInterval(frame, 100);
+  function frame() {
+    if (width >= 100) {
+      clearInterval(id);
+    } else {
+      width++;
+      time.style.width = width + "%";
+      time.innerHTML = width * 1 + " Sec";
+    }
+  }
+}
+
 function createTable() {
   const table = document.getElementById("board");
   for (let i = 0; i < 5; i++) {
@@ -39,6 +54,7 @@ function cellClick(table) {
     for (var j = 0; j < table.rows[i].cells.length; j++) {
       table.rows[i].cells[j].onclick = function () {
         insertValue(this, table);
+        movebar();
       };
     }
   }
