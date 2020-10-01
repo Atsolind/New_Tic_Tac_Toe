@@ -2,36 +2,36 @@ import "./styles.css";
 
 let currentTurn = "O";
 let gameActive = true;
-var time = document.getElementById("insidebar");
+var turn = document.getElementById("insidebar");
+var turnCounter = 0;
 var width = 0;
 var id;
+var seconds = 0;
+var time = document.getElementById("stopwatch");
+var timeInterval;
 
-function moveBar() {
-  var id = setInterval(frame, 100);
-  function frame() {
-    if (width >= 100) {
-      resetWidth();
-    } else {
-      width++;
-      time.style.width = width + "%";
-      time.innerHTML = Math.round(width * 0.1) + " Sec";
-    }
-  }
+function rewindTimer() {
+  time.innerHTML = 10 - seconds;
+  seconds++;
 }
+if ((turnCounter = 0)) {
+  timeInterval = setInterval(rewindTimer, 1000);
+}
+
 function move() {
-  if (width >= 100) {
+  if (width >= 25) {
     resetWidth();
   } else {
-    width = width + 4;
-    time.style.width = width + "%";
-    time.innerHTML = width + "%";
+    width = width + 1;
+    turn.style.width = width + "%";
+    turn.innerHTML = width + ".Turn";
   }
 }
 
 function resetWidth() {
   width = 0;
   clearInterval(id);
-  time.style.width = width + "%";
+  turn.style.width = width + "%";
 }
 
 function createTable() {
@@ -49,6 +49,12 @@ createTable();
 
 function changePlayer() {
   currentTurn = currentTurn === "X" ? "O" : "X";
+  clearInterval(timeInterval);
+  timeInterval = setInterval(rewindTimer, 1000);
+
+  seconds = 0;
+  turnCounter++;
+  rewindTimer();
 }
 
 function insertValue(tableCell, table) {
@@ -62,6 +68,9 @@ function insertValue(tableCell, table) {
     tableCell.style.backgroundColor = "rgb(250, 128, 114)";
     changePlayer();
   }
+  if (turnCounter === 25) {
+    resetTable();
+  }
   checkWinner();
 }
 
@@ -70,7 +79,6 @@ function cellClick(table) {
     for (var j = 0; j < table.rows[i].cells.length; j++) {
       table.rows[i].cells[j].onclick = function () {
         insertValue(this, table);
-        //resetWidth();
         move();
       };
     }
@@ -164,11 +172,14 @@ function checkWinner() {
     }
     gameActive = false;
     resetTable();
+    resetWidth();
+    turnCounter = 0;
     return;
   }
 }
 
 function resetTable() {
   document.getElementById("board").innerHTML = "";
+  turnCounter = 0;
   createTable();
 }
