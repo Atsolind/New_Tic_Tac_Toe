@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif;
+  font-family: Helvetica;
 }
 
 table {
@@ -13,5 +13,6 @@ td {
   text-align: center;
   width: 60px;
   height: 60px;
-  font-size: 50px;
+  font-size: 30px;
+  font-family: Helvetica;
 }

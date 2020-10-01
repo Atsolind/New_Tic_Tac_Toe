@@ -23,10 +23,12 @@ function changePlayer() {
 function insertValue(tableCell, table) {
   if (tableCell.innerHTML === "" && currentTurn === "O") {
     tableCell.innerHTML = "X";
+    tableCell.style.backgroundColor = "rgb(124, 252, 0)";
     changePlayer();
   }
   if (tableCell.innerHTML === "") {
     tableCell.innerHTML = "O";
+    tableCell.style.backgroundColor = "rgb(250, 128, 114)";
     changePlayer();
   }
   checkWinner();
