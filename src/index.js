@@ -9,13 +9,36 @@ var id;
 var seconds = 0;
 var time = document.getElementById("stopwatch");
 var timeInterval;
+var timeout;
 
+function timeOut() {
+  turnCounter++;
+  alert("Time has run out, other players turn.");
+  changePlayer();
+}
+
+function resetTimeout() {
+  clearTimeout(timeout);
+}
 function rewindTimer() {
   time.innerHTML = 10 - seconds;
   seconds++;
 }
 if ((turnCounter = 0)) {
   timeInterval = setInterval(rewindTimer, 1000);
+}
+
+function movebar() {
+  id = setInterval(frame, 100);
+  function frame() {
+    if (width >= 100) {
+      resetWidth();
+    } else {
+      width++;
+      turn.style.width = width + "%";
+      turn.innerHTML = Math.round(width * 0.1) + " Sec";
+    }
+  }
 }
 
 function move() {
@@ -51,7 +74,7 @@ function changePlayer() {
   currentTurn = currentTurn === "X" ? "O" : "X";
   clearInterval(timeInterval);
   timeInterval = setInterval(rewindTimer, 1000);
-
+  timeout = setTimeout(timeOut, 10000);
   seconds = 0;
   turnCounter++;
   rewindTimer();
@@ -61,11 +84,13 @@ function insertValue(tableCell, table) {
   if (tableCell.innerHTML === "" && currentTurn === "O") {
     tableCell.innerHTML = "X";
     tableCell.style.backgroundColor = "rgb(124, 252, 0)";
+    resetTimeout();
     changePlayer();
   }
   if (tableCell.innerHTML === "") {
     tableCell.innerHTML = "O";
     tableCell.style.backgroundColor = "rgb(250, 128, 114)";
+    resetTimeout();
     changePlayer();
   }
   if (turnCounter === 25) {
@@ -79,7 +104,8 @@ function cellClick(table) {
     for (var j = 0; j < table.rows[i].cells.length; j++) {
       table.rows[i].cells[j].onclick = function () {
         insertValue(this, table);
-        move();
+        resetWidth();
+        movebar();
       };
     }
   }
@@ -171,6 +197,7 @@ function checkWinner() {
       alert("Player 2 won!");
     }
     gameActive = false;
+    resetTimeout();
     resetTable();
     resetWidth();
     turnCounter = 0;
