@@ -1,16 +1,46 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+
+    <link rel="stylesheet" href="src/styles.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
     <title>Tic Tac Toe</title>
     <meta charset="UTF-8" />
   </head>
 
   <body>
-    <h1>Tic Tac Toe</h1>
-    <div id="progressbar">
-      <div id="insidebar">Sec</div>
-    <h2><h2>
-    <table id="board"></table>
-    <script src="src/index.js"></script>
+    <div class="row">
+      <div class="col s2"></div>
+      <div class="col s8 flow-text">
+        <h1>Tic Tac Toe</h1>
+      </div>
+      <div class="col s2"></div>
+    </div>
+
+    <div class="row">
+      <div class="col s4"></div>
+      <div class="col s4">
+        <div class="progress" id="progressbar">
+          <div class="determinate" id="insidebar">Sec</div>
+        </div>
+      </div>
+      <div class="col s4"></div>
+    </div>
+
+    <h2></h2>
+    <div class="row">
+      <div class="col s2"></div>
+      <div class="col s8">
+        <table id="board"></table>
+      </div>
+      <div class="col s2"></div>
+    </div>
+    <script src="./src/index.js"></script>
   </body>
 </html>
